@@ -5,8 +5,6 @@ obj/
 *.exe
 *.pdb
 *.user
-*.vscode
-*.vs
 *.suo
 *.cache
 *.log
@@ -56,6 +54,16 @@ yarn-error.log*
 *.orig
 *.pyc
 *.swp
+
+# Editor directories and files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Database
 *.db
