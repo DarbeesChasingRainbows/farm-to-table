@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+option csharp_namespace = "RestaurantManagement.InventoryService.API.GrpcServices";
+
+package inventory;
+
+service InventoryService {
+  rpc GetInventoryItem (GetInventoryItemRequest) returns (InventoryItemResponse);
+  rpc CheckAvailability (CheckAvailabilityRequest) returns (CheckAvailabilityResponse);
+  rpc ReceiveInventory (ReceiveInventoryRequest) returns (ReceiveInventoryResponse);
+}
+
+message GetInventoryItemRequest {
+  string item_id = 1;
+}
+
+message InventoryItemResponse {
+  string id = 1;
+  string name = 2;
+  string sku = 3;
+  string category = 4;
+  string unit_of_measure = 5;
+}
+
+message CheckAvailabilityRequest {
+  repeated InventoryItemCheck items = 1;
+  string location_id = 2;
+}
+
+message InventoryItemCheck {
+  string item_id = 1;
+  double required_quantity = 2;
+}
+
+message CheckAvailabilityResponse {
+  bool all_available = 1;
+  repeated UnavailableItem unavailable_items = 2;
+}
+
+message UnavailableItem {
+  string item_id = 1;
+  double required_quantity = 2;
+  double available_quantity = 3;
+}
+
+message ReceiveInventoryRequest {
+  string purchase_order_id = 1;
+  repeated InventoryItemReceived items = 2;
+}
+
+message InventoryItemReceived {
+  string item_id = 1;
+  double quantity = 2;
+  string location_id = 3;
+}
+
+message ReceiveInventoryResponse {
+  string transaction_id = 1;
+  repeated UpdatedStockLevel updated_stock_levels = 2;
+}
+
+message UpdatedStockLevel {
+  string item_id = 1;
+  string location_id = 2;
+  double current_quantity = 3;
+}
